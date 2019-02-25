@@ -476,7 +476,11 @@ public class Timetable implements Serializable {
                         if (update.hasDeparture() && (update.getDeparture().hasTime() || update.getDeparture().hasDelay())) {
                             StopTimeEvent departure = update.getDeparture();
                             if (departure.hasDelay()) {
-                                delay = departure.getDelay();
+                                // TODO: make the choice of using departure dalay configurable with a property
+                                // in router-config.json
+                                if (delay == null) {
+                                    delay = departure.getDelay();
+                                }
                                 if (departure.hasTime()) {
                                     newTimes.updateDepartureTime(i,
                                             (int) (departure.getTime() - today));
