@@ -84,14 +84,14 @@
         <aws.version>1.11.456</aws.version>
     </properties>
 
-    <distributionManagement>
+    <!-- <distributionManagement> -->
         <!-- We are using Sonatype Nexus Staging instead of Maven Release plugin.
              Only a snapshot repo should be configured. Releases are done from that snapshot staging repo. -->
-        <snapshotRepository>
+        <!-- <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement> -->
 
     <build>
         <!-- Filtering will perform substitution on maven-version.properties, see git commit id plugin below. -->
@@ -178,9 +178,9 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
+            <!-- <plugin> -->
                 <!-- Recommended way to deploy to OSSRH , which allows deferred manual release to Central. -->
-                <groupId>org.sonatype.plugins</groupId>
+                <!-- <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.7</version>
                 <extensions>true</extensions>
@@ -189,7 +189,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>com.webcohesion.enunciate</groupId>
                 <artifactId>enunciate-maven-plugin</artifactId>
@@ -239,21 +239,21 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.5</version>
                 <executions>
                     <execution>
-                        <id>sign-artifacts</id>
+                        <id>sign-artifacts</id> -->
                         <!-- We sign in the verify phase, which means it will happen for install and deploy but not package. -->
-                        <phase>verify</phase>
+                        <!-- <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
