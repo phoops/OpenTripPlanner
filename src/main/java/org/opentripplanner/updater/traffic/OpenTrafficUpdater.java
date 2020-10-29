@@ -30,6 +30,7 @@ public class OpenTrafficUpdater extends PollingGraphUpdater {
 
     /** the tile directory to search through */
     private File tileDirectory;
+    private double speed;
 
     private boolean hasAlreadyRun = false;
 
@@ -43,10 +44,14 @@ public class OpenTrafficUpdater extends PollingGraphUpdater {
 
         // Set the segment of the street where I live (way di, start node id, end node id)
         Segment myStreet = new Segment(354081300, 4532519951L, 267401672);
-        Double avgSpeed = (double) 10;
-        double[] hourBins =  new double[0]; // we need only average speed for tests
+        Double avgSpeed = speed;
+        int hoursInWeek = 24*7;
+        double[] hoursBins =  new double[hoursInWeek]; // we need only average speed for tests
+        for (int i = 0; i < hoursInWeek; i++) {
+            hoursBins[i] = avgSpeed;
+        }
 
-        SegmentSpeedSample speedSample = new SegmentSpeedSample(avgSpeed, hourBins);
+        SegmentSpeedSample speedSample = new SegmentSpeedSample(avgSpeed, hoursBins);
         speedIndex.put(myStreet, speedSample);
 
         // Ignore the expected directory
@@ -91,7 +96,7 @@ public class OpenTrafficUpdater extends PollingGraphUpdater {
     @Override
     protected void configurePolling(Graph graph, JsonNode config) throws Exception {
         this.graph = graph;
-        tileDirectory = new File(config.get("tileDirectory").asText());
+        speed = config.get("speed").asDouble();
     }
 
     @Override
